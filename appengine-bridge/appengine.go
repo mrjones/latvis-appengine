@@ -12,7 +12,7 @@ package latvis
 // Also works in a deployed appengine instance.
 import (
 	"github.com/mrjones/oauth"
-	"github.com/mrjones/latvis/latvis"
+	"github.com/mrjones/latvis"
 
 	"appengine"
 	"appengine/datastore"
