@@ -30,8 +30,8 @@ const (
 func init() {
 	config := latvis.NewConfig(
 		&AppengineBlobStoreProvider{},
-		&AppengineHttpClientProvider{},
-		&latvis.InMemoryOauthSecretStoreProvider{},
+//		&AppengineHttpClientProvider{},
+//		&latvis.InMemoryOauthSecretStoreProvider{},
 		&AppengineUrlTaskQueueProvider{})
 	latvis.Setup(config)
 }
