@@ -28,12 +28,34 @@ const (
 )
 
 func init() {
-	config := latvis.NewConfig(
-		&AppengineBlobStoreProvider{},
+//	config := latvis.NewConfig(
+//		&AppengineBlobStoreProvider{},
 //		&AppengineHttpClientProvider{},
 //		&latvis.InMemoryOauthSecretStoreProvider{},
-		&AppengineUrlTaskQueueProvider{})
-	latvis.Setup(config)
+//		&AppengineUrlTaskQueueProvider{})
+//	latvis.Setup(config)
+	latvis.Setup(AppengineEnvironmentFactory{})
+}
+
+type AppengineEnvironmentFactory struct { }
+
+func (fac AppengineEnvironmentFactory) ForRequest(request *http.Request) *latvis.Environment {
+	context := appengine.NewContext(request)
+
+	return latvis.NewEnvironment(
+		&AppengineBlobStoreProvider{},
+		&AppengineUrlTaskQueueProvider{},
+		&AppengineLogger{context: context})
+}
+
+//
+
+type AppengineLogger struct {
+	context appengine.Context
+}
+
+func (l *AppengineLogger) Errorf(format string, args ...interface{}) {
+	l.context.Errorf(format, args)
 }
 
 //
